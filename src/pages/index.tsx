@@ -19,6 +19,11 @@ const WelcomeWrapper = styled.div`
     max-width: 450px;
     text-align: center;
   }
+
+  .text--h1 {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
 `
 
 const height = 200
