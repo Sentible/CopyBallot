@@ -1,4 +1,4 @@
-import Card from '@/components/Card'
+import Card, { BlankCard } from '@/components/Card'
 import { Proposals, Proposal } from '@/utils/types'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
@@ -6,6 +6,7 @@ import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import Button from '@/components/Button'
 import Text from '@/components/Text'
+import { ethers, Interface } from 'ethers'
 
 const isActive = (proposal: Proposal) => {
   const status = new Set(proposal.statusChanges.map(({ type }) => type))
@@ -30,7 +31,7 @@ const ShowMoreContainer = styled.div`
   color: #000;
 
   background: linear-gradient(180deg, #ffffffdb 0%, #bbbbbbeb 100%);
-  height: 100px;
+  height: 50px;
   box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.25);
 `
 
@@ -52,6 +53,7 @@ const ProposalCard = styled(Card)<{
 
   code {
     white-space: pre-wrap;
+    word-wrap: whitespace;
   }
 
   img {
@@ -69,18 +71,49 @@ const ProposalCard = styled(Card)<{
 `
 
 const Proposal = ({ proposal }: { proposal: Proposal }) => {
-  const { description } = proposal
+  const { description, id } = proposal
 
   const [isExpanded, setIsExpanded] = useState(false)
+
+  const againstCallData = useMemo(() => {
+    return new Interface([
+      'function castVote(uint256 proposalId, uint8 support)'
+    ]).encodeFunctionData('castVote', [id, '0'])
+  }, [id])
+  const forCallData = useMemo(() => {
+    return new Interface([
+      'function castVote(uint256 proposalId, uint8 support)'
+    ]).encodeFunctionData('castVote', [id, '1'])
+  }, [id])
+
+  if (!description?.length) {
+    return null
+  }
 
   return (
     <ProposalCard isExpanded={isExpanded}>
       <ShowMoreContainer>
         <Text textStyle='label' onClick={() => setIsExpanded(!isExpanded)}>
-          {isExpanded ? 'Show Less' : 'Show More'}
+          Get Command
         </Text>
       </ShowMoreContainer>
       <Markdown remarkPlugins={[remarkGfm]}>{description}</Markdown>
+      {isExpanded && (
+        <>
+          <Card>
+            <Text textStyle='label'>FOR the proposal</Text>
+            <code>
+              {`rocketpool node send-message 0xfb6b7c11a55c57767643f1ff65c34c8693a11a70 ${forCallData}`}
+            </code>
+          </Card>
+          <Card>
+            <Text textStyle='label'>AGAINST the proposal</Text>
+            <code>
+              {`rocketpool node send-message 0xfb6b7c11a55c57767643f1ff65c34c8693a11a70 ${againstCallData}`}
+            </code>
+          </Card>
+        </>
+      )}
     </ProposalCard>
   )
 }
