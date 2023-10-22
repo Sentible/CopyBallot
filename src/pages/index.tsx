@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import Text from '@/components/Text'
 import styles from '@/styles/Home.module.css'
 import { useEffect } from 'react'
+import Proposals from '@/modules/Proposals'
 const StyledCard = styled(BlankCard)`
   align-items: center;
   display: flex;
@@ -16,6 +17,11 @@ const StyledCard = styled(BlankCard)`
 const WelcomeWrapper = styled.div`
   .text--headline {
     max-width: 450px;
+    text-align: center;
+  }
+
+  .text--h1 {
+    margin-bottom: 1rem;
     text-align: center;
   }
 `
@@ -46,6 +52,7 @@ const Welcome = () => {
           width={width}
         />
       </StyledCard>
+      <Proposals />
     </WelcomeWrapper>
   )
 }
