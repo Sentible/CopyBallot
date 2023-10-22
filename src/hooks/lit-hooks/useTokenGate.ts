@@ -18,31 +18,32 @@ import Cookies from 'js-cookie'
 //   }
 // ]
 
-const getTokenAccessControl = (contractAddress = '') => [
-  {
-    contractAddress,
-    standardContractType: 'ERC20',
-    chain: 'ethereum',
-    method: 'balanceOf',
-    parameters: [':userAddress'],
-    returnValueTest: {
-      comparator: '>=',
-      value: '1'
-    }
-  },
-  { operator: 'and' },
-  {
-    contractAddress: "",
-    standardContractType: "SIWE",
-    chain: "ethereum",
-    method: "",
-    parameters: [":domain"],
-    returnValueTest: {
-      comparator: "=",
-      value: "localhost:3000",
+const getTokenAccessControl = (contractAddress = '') =>
+  [
+    {
+      contractAddress,
+      standardContractType: 'ERC20',
+      chain: 'ethereum',
+      method: 'balanceOf',
+      parameters: [':userAddress'],
+      returnValueTest: {
+        comparator: '>=',
+        value: '1'
+      }
     },
-  },
-] as any[]
+    { operator: 'and' },
+    {
+      contractAddress: '',
+      standardContractType: 'SIWE',
+      chain: 'ethereum',
+      method: '',
+      parameters: [':domain'],
+      returnValueTest: {
+        comparator: '=',
+        value: 'localhost:3000'
+      }
+    }
+  ] as any[]
 
 export const useTokenGate = ({ token = '' }) => {
   const accessControlConditions = getTokenAccessControl(token)
@@ -51,7 +52,7 @@ export const useTokenGate = ({ token = '' }) => {
 
   const connect = useCallback(async () => {
     const client = new LitJsSdk.LitNodeClient({
-      alertWhenUnauthorized: false,
+      alertWhenUnauthorized: false
       // debug: false
     })
     await client.connect()
@@ -68,7 +69,6 @@ export const useTokenGate = ({ token = '' }) => {
     }
 
     try {
-
       const jwt = await client.getSignedToken({
         accessControlConditions,
         chain: 'ethereum',
@@ -78,15 +78,14 @@ export const useTokenGate = ({ token = '' }) => {
       Cookies.set('lit-auth', jwt, { expires: 1 })
       setIsConnected(true)
       setIsNotMember(false)
-
     } catch (error: any) {
       const errorCode = error?.errorCode as string
       console.log({ errorCode })
-      const accessDenied = errorCode === 'NodeAccessControlConditionsReturnedNotAuthorized'
+      const accessDenied =
+        errorCode === 'NodeAccessControlConditionsReturnedNotAuthorized'
       setIsNotMember(accessDenied)
       setIsConnected(accessDenied)
     }
-
   }, [accessControlConditions])
 
   return {

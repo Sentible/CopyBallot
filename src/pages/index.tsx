@@ -67,16 +67,14 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         {isLocked ? (
-          <> You are not a member of DIVA Protocol.
-          </>
-        ) :
-          !isConnected ? (
-            <Button onClick={connect} variant='outline'>
-              Connect
-            </Button>
-          ) :
-            <Welcome />
-        }
+          <> You are not a member of DIVA Protocol.</>
+        ) : !isConnected ? (
+          <Button onClick={connect} variant='outline'>
+            Connect
+          </Button>
+        ) : (
+          <Welcome />
+        )}
       </main>
     </>
   )
