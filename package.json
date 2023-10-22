@@ -1,5 +1,5 @@
 {
-  "name": "arbstake",
+  "name": "-",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,16 +9,29 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@lit-protocol/auth-helpers": "^3.0.6",
+    "@lit-protocol/constants": "^3.0.6",
+    "@lit-protocol/lit-auth-client": "^3.0.6",
+    "@lit-protocol/lit-node-client": "^3.0.6",
+    "@lit-protocol/pkp-ethers": "^3.0.6",
+    "@lit-protocol/types": "^3.0.6",
+    "@types/js-cookie": "^3.0.5",
+    "js-cookie": "^3.0.5",
+    "js-cookies": "^1.0.4",
+    "lit-js-sdk": "^1.1.250",
+    "next": "13.5.4",
+    "node-fetch": "2.6.1",
     "react": "^18",
     "react-dom": "^18",
-    "next": "13.5.4"
+    "styled-components": "^6.1.0",
+    "webpack": "^5.89.0"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "13.5.4"
+    "eslint-config-next": "13.5.4",
+    "typescript": "^5"
   }
 }
