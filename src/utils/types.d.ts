@@ -1,46 +1,45 @@
-
 export interface StatusChange {
-  type: string;
+  type: string
 }
 export interface Block {
-  timestamp: string;
+  timestamp: string
 }
 export interface VoteStat {
-  votes: string;
-  weight: string;
-  support: string;
-  percent: number;
+  votes: string
+  weight: string
+  support: string
+  percent: number
 }
 export interface Visual {
-  icon: string;
+  icon: string
 }
 export interface Organization {
-  visual: Visual;
+  visual: Visual
 }
 export interface Token {
-  decimals: number;
+  decimals: number
 }
 export interface Governance {
-  id: string;
-  quorum: string;
-  name: string;
-  timelockId: string;
-  organization: Organization;
-  tokens: Token[];
+  id: string
+  quorum: string
+  name: string
+  timelockId: string
+  organization: Organization
+  tokens: Token[]
 }
 export interface TallyProposal {
-  id: string;
-  createdAt: string;
-  status: string;
+  id: string
+  createdAt: string
+  status: string
 }
 export interface Proposal {
-  id: string;
-  description: string;
-  statusChanges: StatusChange[];
-  block: Block;
-  voteStats: VoteStat[];
-  governance: Governance;
-  tallyProposal: TallyProposal;
+  id: string
+  description: string
+  statusChanges: StatusChange[]
+  block: Block
+  voteStats: VoteStat[]
+  governance: Governance
+  tallyProposal: TallyProposal
 }
 
 export type Proposals = Proposal[]

@@ -1,10 +1,9 @@
-import Card from "@/components/Card"
-import { Proposals, Proposal } from "@/utils/types"
-import { useCallback, useEffect, useMemo, useState } from "react"
-import styled from "styled-components"
+import Card from '@/components/Card'
+import { Proposals, Proposal } from '@/utils/types'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import styled from 'styled-components'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-
 
 const isActive = (proposal: Proposal) => {
   const status = new Set(proposal.statusChanges.map(({ type }) => type))
@@ -20,7 +19,10 @@ const Proposal = styled(Card)`
   word-wrap: break-word;
   max-width: 400px;
 
-  p + h2, h1 + p, p + p, h2 + p{
+  p + h2,
+  h1 + p,
+  p + p,
+  h2 + p {
     margin-top: 1rem;
     word-wrap: break-word;
   }
@@ -28,7 +30,6 @@ const Proposal = styled(Card)`
   code {
     white-space: pre-wrap;
   }
-
 
   img {
     width: 100%;
@@ -44,7 +45,8 @@ export default function Proposals() {
         next: { revalidate: 10 },
         method: 'POST'
       })
-      const data = (await revalidatedData.json() as { proposals: Proposals })?.proposals
+      const data = ((await revalidatedData.json()) as { proposals: Proposals })
+        ?.proposals
       console.log({ data })
       setProposals(data)
       return data
@@ -56,7 +58,7 @@ export default function Proposals() {
   const { active, inActive } = useMemo(() => {
     const active: Proposals = []
     const inActive: Proposals = []
-    proposals.forEach(proposal => {
+    proposals.forEach((proposal) => {
       if (isActive(proposal)) {
         active.push(proposal)
       } else {
@@ -74,9 +76,11 @@ export default function Proposals() {
 
   return (
     <div>
-      {inActive.map(proposal => (
+      {inActive.map((proposal) => (
         <Proposal key={proposal.id}>
-          <Markdown remarkPlugins={[remarkGfm]}>{(proposal.description)}</Markdown>
+          <Markdown remarkPlugins={[remarkGfm]}>
+            {proposal.description}
+          </Markdown>
         </Proposal>
       ))}
     </div>
