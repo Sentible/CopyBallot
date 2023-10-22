@@ -1,12 +1,11 @@
-import Card, { BlankCard } from '@/components/Card'
+import Card from '@/components/Card'
 import { Proposals, Proposal } from '@/utils/types'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import Button from '@/components/Button'
 import Text from '@/components/Text'
-import { ethers, Interface } from 'ethers'
+import { Interface } from 'ethers'
 
 const isActive = (proposal: Proposal) => {
   const status = new Set(proposal.statusChanges.map(({ type }) => type))
@@ -35,7 +34,7 @@ const ShowMoreContainer = styled.div`
   box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.25);
 `
 
-const ProposalCard = styled(Card)<{
+const ProposalCard = styled(Card) <{
   isExpanded?: boolean
 }>`
   max-width: 425px;
@@ -70,21 +69,18 @@ const ProposalCard = styled(Card)<{
   `}
 `
 
+const getVote = (id: string, vote: '0' | '1') =>
+  new Interface([
+    'function castVote(uint256 proposalId, uint8 support)'
+  ]).encodeFunctionData('castVote', [id, vote])
+
 const Proposal = ({ proposal }: { proposal: Proposal }) => {
   const { description, id } = proposal
 
   const [isExpanded, setIsExpanded] = useState(false)
 
-  const againstCallData = useMemo(() => {
-    return new Interface([
-      'function castVote(uint256 proposalId, uint8 support)'
-    ]).encodeFunctionData('castVote', [id, '0'])
-  }, [id])
-  const forCallData = useMemo(() => {
-    return new Interface([
-      'function castVote(uint256 proposalId, uint8 support)'
-    ]).encodeFunctionData('castVote', [id, '1'])
-  }, [id])
+  const againstCallData = useMemo(() => getVote(id, '0'), [id])
+  const forCallData = useMemo(() => getVote(id, '1'), [id])
 
   if (!description?.length) {
     return null
