@@ -4,15 +4,7 @@ import React from 'react'
 
 type TextOverflow = 'wrap' | 'truncate' | 'no-wrap' | 'hidden'
 type Headers = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-type TextStyle =
-  | Headers
-  | 'body'
-  | 'boldCaption'
-  | 'caption'
-  | 'headline'
-  | 'label'
-  | 'micro'
-  | 'title'
+type TextStyle = Headers | 'body' | 'boldCaption' | 'caption' | 'headline' | 'label' | 'micro' | 'title'
 type TextTag = Headers | 'p' | 'span' | 'label' | 'a' | 'link'
 
 type Props = {
@@ -41,7 +33,7 @@ const fontWeight = {
   h6: theme.Typography.weight.normal,
   label: theme.Typography.weight.bold,
   micro: theme.Typography.weight.normal,
-  title: theme.Typography.weight.bold
+  title: theme.Typography.weight.bold,
 }
 
 const fontSize = {
@@ -57,7 +49,7 @@ const fontSize = {
   h6: theme.Typography.size.small,
   label: theme.Typography.size.normal,
   micro: theme.Typography.size.micro,
-  title: theme.Typography.size.giant
+  title: theme.Typography.size.giant,
 }
 
 const Text: React.FC<Props> = ({
@@ -70,30 +62,23 @@ const Text: React.FC<Props> = ({
   overflow = 'wrap',
   tag = 'p',
   target,
-  textStyle = 'body'
+  textStyle = 'body',
 }): JSX.Element => {
   const isLink = (tag as TextTag) === 'link'
   const Tag = isLink ? (Link as any) : tag
-  const classNames = [
-    `text--${textStyle}`,
-    `text--${overflow}`,
-    className,
-    number && 'number'
-  ]
-    .join(' ')
-    .trim()
+  const classNames = [`text--${textStyle}`, `text--${overflow}`, className, number && 'number'].join(' ').trim()
   const _target = target ? target : href ? '_blank' : undefined
 
   const numberProps = {
     fontSize: theme.Typography.size.normal,
-    fontWeight: theme.Typography.weight.semiBold
+    fontWeight: theme.Typography.weight.semiBold,
   } as React.CSSProperties
 
   const styleProps = {
     fontSize: fontSize[textStyle],
     fontWeight: fontWeight[textStyle],
     textOverflow: overflow,
-    ...(number && numberProps)
+    ...(number && numberProps),
   } as React.CSSProperties
 
   return (

@@ -12,5 +12,5 @@ export const Spacing = {
   ten: '2.5rem',
   eleven: '2.75rem',
   twelve: '3rem',
-  sixteen: '4rem'
+  sixteen: '4rem',
 }

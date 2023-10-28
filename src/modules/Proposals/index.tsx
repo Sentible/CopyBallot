@@ -34,7 +34,7 @@ const ShowMoreContainer = styled.div`
   box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.25);
 `
 
-const ProposalCard = styled(Card) <{
+const ProposalCard = styled(Card)<{
   isExpanded?: boolean
 }>`
   max-width: 425px;
@@ -70,9 +70,7 @@ const ProposalCard = styled(Card) <{
 `
 
 const getVote = (id: string, vote: '0' | '1') =>
-  new Interface([
-    'function castVote(uint256 proposalId, uint8 support)'
-  ]).encodeFunctionData('castVote', [id, vote])
+  new Interface(['function castVote(uint256 proposalId, uint8 support)']).encodeFunctionData('castVote', [id, vote])
 
 const Proposal = ({ proposal }: { proposal: Proposal }) => {
   const { description, id } = proposal
@@ -98,15 +96,11 @@ const Proposal = ({ proposal }: { proposal: Proposal }) => {
         <>
           <Card>
             <Text textStyle='label'>FOR the proposal</Text>
-            <code>
-              {`rocketpool node send-message 0xfb6b7c11a55c57767643f1ff65c34c8693a11a70 ${forCallData}`}
-            </code>
+            <code>{`rocketpool node send-message 0xfb6b7c11a55c57767643f1ff65c34c8693a11a70 ${forCallData}`}</code>
           </Card>
           <Card>
             <Text textStyle='label'>AGAINST the proposal</Text>
-            <code>
-              {`rocketpool node send-message 0xfb6b7c11a55c57767643f1ff65c34c8693a11a70 ${againstCallData}`}
-            </code>
+            <code>{`rocketpool node send-message 0xfb6b7c11a55c57767643f1ff65c34c8693a11a70 ${againstCallData}`}</code>
           </Card>
         </>
       )}
@@ -121,10 +115,9 @@ export default function Proposals() {
     try {
       const revalidatedData = await fetch('/api/tally', {
         next: { revalidate: 10 },
-        method: 'POST'
+        method: 'POST',
       })
-      const data = ((await revalidatedData.json()) as { proposals: Proposals })
-        ?.proposals
+      const data = ((await revalidatedData.json()) as { proposals: Proposals })?.proposals
       console.log({ data })
       setProposals(data)
       return data

@@ -23,7 +23,7 @@ const SIZE_MAP: any = {
   tiny: Spacing.one,
   small: Spacing.two,
   regular: Spacing.three,
-  large: Spacing.four
+  large: Spacing.four,
 }
 
 const StyledButton = styled.button<Props>`
@@ -48,8 +48,7 @@ const StyledButton = styled.button<Props>`
 
     &-primary {
       background: linear-gradient(
-        ${({ theme }) =>
-          `90deg,${theme.Colors.eggplant} 0%,${theme.Colors.purple} 35%,${theme.Colors.darkPurple} 100%`}
+        ${({ theme }) => `90deg,${theme.Colors.eggplant} 0%,${theme.Colors.purple} 35%,${theme.Colors.darkPurple} 100%`}
       );
       border: 2px solid ${({ theme }) => theme.Colors.darkPurple};
 
@@ -84,15 +83,9 @@ const Button: React.FC<Props> = ({
   size = 'regular',
   type = 'primary',
   variant = 'solid',
-  width = '100%'
+  width = '100%',
 }) => {
-  const classNames = [
-    'button',
-    `button-${size}`,
-    `button-${type}`,
-    `${variant}`,
-    className
-  ].join(' ')
+  const classNames = ['button', `button-${size}`, `button-${type}`, `${variant}`, className].join(' ')
 
   const ariaLabel = classNames
 

@@ -28,8 +28,8 @@ const getTokenAccessControl = (contractAddress = '') =>
       parameters: [':userAddress'],
       returnValueTest: {
         comparator: '>=',
-        value: '1'
-      }
+        value: '1',
+      },
     },
     { operator: 'and' },
     {
@@ -40,9 +40,9 @@ const getTokenAccessControl = (contractAddress = '') =>
       parameters: [':domain'],
       returnValueTest: {
         comparator: '=',
-        value: 'localhost:3000'
-      }
-    }
+        value: 'localhost:3000',
+      },
+    },
   ] as any[]
 
 export const useTokenGate = ({ token = '' }) => {
@@ -52,12 +52,12 @@ export const useTokenGate = ({ token = '' }) => {
 
   const connect = useCallback(async () => {
     const client = new LitJsSdk.LitNodeClient({
-      alertWhenUnauthorized: false
+      alertWhenUnauthorized: false,
       // debug: false
     })
     await client.connect()
     const authSig = await LitJsSdk.checkAndSignAuthMessage({
-      chain: 'ethereum'
+      chain: 'ethereum',
     })
 
     const resourceId = {
@@ -65,7 +65,7 @@ export const useTokenGate = ({ token = '' }) => {
       path: '/',
       orgId: '',
       role: '',
-      extraData: authSig.address
+      extraData: authSig.address,
     }
 
     try {
@@ -73,7 +73,7 @@ export const useTokenGate = ({ token = '' }) => {
         accessControlConditions,
         chain: 'ethereum',
         authSig,
-        resourceId
+        resourceId,
       })
       Cookies.set('lit-auth', jwt, { expires: 1 })
       setIsConnected(true)
@@ -81,8 +81,7 @@ export const useTokenGate = ({ token = '' }) => {
     } catch (error: any) {
       const errorCode = error?.errorCode as string
       console.log({ errorCode })
-      const accessDenied =
-        errorCode === 'NodeAccessControlConditionsReturnedNotAuthorized'
+      const accessDenied = errorCode === 'NodeAccessControlConditionsReturnedNotAuthorized'
       setIsNotMember(accessDenied)
       setIsConnected(accessDenied)
     }
@@ -91,7 +90,7 @@ export const useTokenGate = ({ token = '' }) => {
   return {
     connect,
     isConnected,
-    isNotMember: _isNotMember !== undefined && _isNotMember === true
+    isNotMember: _isNotMember !== undefined && _isNotMember === true,
   }
 }
 
@@ -99,6 +98,6 @@ const DIVA_TOKEN = '0xbfabde619ed5c4311811cf422562709710db587d'
 
 export const useDivaGate = () => {
   return useTokenGate({
-    token: DIVA_TOKEN
+    token: DIVA_TOKEN,
   })
 }

@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import { BlankCard } from "@/components/Card";
+import styled from 'styled-components'
+import { BlankCard } from '@/components/Card'
 
 const LogoDiv = styled.div`
-  background-color: #FFF;
+  background-color: #fff;
   border-radius: 100%;
   display: flex;
   justify-content: center;
@@ -34,7 +34,7 @@ const HeaderCard = styled(BlankCard)`
   justify-content: center;
   align-items: center;
   flex-flow: row wrap;
-  `
+`
 
 export default function Header() {
   return (
@@ -43,9 +43,10 @@ export default function Header() {
         <img alt='ProposalClip' src='/logo.png' />
       </LogoDiv>
       <Title>
-        <p className="title">ProposalClip</p>
-        <p className="subtitle">
-          Vote on Diva proposals from<br />
+        <p className='title'>ProposalClip</p>
+        <p className='subtitle'>
+          Vote on Diva proposals from
+          <br />
           your Rocket Pool node.
         </p>
       </Title>
