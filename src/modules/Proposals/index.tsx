@@ -6,6 +6,7 @@ import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import Text from '@/components/Text'
 import { Interface } from 'ethers'
+import CallDataPreview from '@/components/CallDataPreview'
 
 const isActive = (proposal: Proposal) => {
   const status = new Set(proposal.statusChanges.map(({ type }) => type))
@@ -34,7 +35,7 @@ const ShowMoreContainer = styled.div`
   box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.25);
 `
 
-const ProposalCard = styled(Card)<{
+const ProposalCard = styled(Card) <{
   isExpanded?: boolean
 }>`
   max-width: 425px;
@@ -48,11 +49,6 @@ const ProposalCard = styled(Card)<{
   h2 + p {
     margin-top: 1rem;
     word-wrap: break-word;
-  }
-
-  code {
-    white-space: pre-wrap;
-    word-wrap: whitespace;
   }
 
   img {
@@ -73,12 +69,16 @@ const getVote = (id: string, vote: '0' | '1') =>
   new Interface(['function castVote(uint256 proposalId, uint8 support)']).encodeFunctionData('castVote', [id, vote])
 
 const Proposal = ({ proposal }: { proposal: Proposal }) => {
-  const { description, id } = proposal
+  const { description, governance, id } = proposal
 
   const [isExpanded, setIsExpanded] = useState(false)
 
   const againstCallData = useMemo(() => getVote(id, '0'), [id])
   const forCallData = useMemo(() => getVote(id, '1'), [id])
+
+  const contractAddress = useMemo(() => governance.id.split(':')?.slice(-1)?.[0], [governance])
+
+  console.log(id, proposal)
 
   if (!description?.length) {
     return null
@@ -86,18 +86,15 @@ const Proposal = ({ proposal }: { proposal: Proposal }) => {
 
   return (
     <ProposalCard isExpanded={isExpanded}>
-      <ShowMoreContainer>
+      {/* <ShowMoreContainer>
         <Text textStyle='label' onClick={() => setIsExpanded(!isExpanded)}>
           Get Command
         </Text>
       </ShowMoreContainer>
-      <Markdown remarkPlugins={[remarkGfm]}>{description}</Markdown>
-      {isExpanded && (
+      <Markdown remarkPlugins={[remarkGfm]}>{description}</Markdown> */}
+      {!isExpanded && (
         <>
-          <Card>
-            <Text textStyle='label'>FOR the proposal</Text>
-            <code>{`rocketpool node send-message 0xfb6b7c11a55c57767643f1ff65c34c8693a11a70 ${forCallData}`}</code>
-          </Card>
+          <CallDataPreview callData={forCallData} contractAddress={contractAddress} proposalId={id} />
           <Card>
             <Text textStyle='label'>AGAINST the proposal</Text>
             <code>{`rocketpool node send-message 0xfb6b7c11a55c57767643f1ff65c34c8693a11a70 ${againstCallData}`}</code>
