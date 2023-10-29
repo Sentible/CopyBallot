@@ -35,7 +35,7 @@ const ShowMoreContainer = styled.div`
   box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.25);
 `
 
-const ProposalCard = styled(Card) <{
+const ProposalCard = styled(Card)<{
   isExpanded?: boolean
 }>`
   max-width: 425px;
