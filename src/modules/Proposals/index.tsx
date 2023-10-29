@@ -42,14 +42,7 @@ const Proposal = ({ proposal }: { proposal: Proposal }) => {
 
   return (
     <CallDataPreview callData={callData} contractAddress={contractAddress}>
-      <CastVote
-        castVote={(i) => {
-          console.log(i)
-          setCastedVote(i)
-        }}
-        onTally={openTallyLink}
-        title={title}
-      />
+      <CastVote castVote={setCastedVote} onTally={openTallyLink} title={title} selected={castedVote} />
     </CallDataPreview>
   )
 }

@@ -4,6 +4,7 @@ import Text from '../Text'
 import Button from '../Button'
 import { useCallback, useState } from 'react'
 import { CastVote } from '../CastVote'
+import copy from 'copy-to-clipboard'
 
 const StyledCard = styled(BlankCard)`
   color: ${({ theme }) => theme.Colors.black};
@@ -179,12 +180,11 @@ const CallDataPreview = ({ contractAddress, children, callData }: Props) => {
 
   const onCopy = useCallback(() => {
     try {
-      navigator.clipboard.writeText(`rocketpool node send-message ${contractAddress} ${callData}`).then(() => {
-        setCopied(true)
-        setTimeout(() => {
-          setCopied(false)
-        }, 2000)
-      })
+      copy(`rocketpool node send-message ${contractAddress} ${callData}`)
+      setCopied(true)
+      setTimeout(() => {
+        setCopied(false)
+      }, 3000)
     } catch (error) {}
   }, [contractAddress, callData])
 

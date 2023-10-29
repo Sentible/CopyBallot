@@ -3,7 +3,7 @@ import Text from '../Text'
 
 const Wrapper = styled.div`
   margin: 0px -16px;
-  background: black;
+  background: #000;
   color: white;
   padding-top: 1rem;
   border-radius: 10px 10px 0 0;
@@ -12,25 +12,23 @@ const Wrapper = styled.div`
     margin: -8px 0 8px;
     cursor: pointer;
     text-align: center;
+    padding: 0.3rem;
   }
 
   .options {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 28px;
     border-top: 1px solid;
 
     .option {
       align-items: center;
-      background: #000;
-      border: 1px solid #000000;
       color: ${({ theme }) => theme.Colors.white};
       cursor: pointer;
       display: flex;
       justify-content: center;
       width: 50%;
-      padding: 1rem;
+      padding: 0.4rem;
 
       h4 {
         height: auto;
@@ -44,14 +42,18 @@ const Wrapper = styled.div`
       }
 
       &.yes {
-        &.selected {
-          background: #00ff00;
+        &.selected,
+        &:hover {
+          background: rgba(40, 225, 92, 0.75);
         }
         border-right: 1px solid;
       }
 
-      &.no.selected {
-        background: #ff0000;
+      &.no {
+        &.selected,
+        &:hover {
+          background: rgba(253, 127, 99, 0.75);
+        }
       }
     }
   }
@@ -92,25 +94,31 @@ const NoIcon = () => (
 export const CastVote = ({
   castVote,
   onTally,
+  selected,
   title = 'Cast Your Vote',
 }: {
   castVote: (vote: '0' | '1') => void
   onTally?: () => void
+  selected?: '0' | '1'
   title?: string
 }) => {
+  const isSelected = (vote: '0' | '1') => vote === selected
+  const yesClass = isSelected('1') ? 'option yes selected' : 'option yes'
+  const noClass = isSelected('0') ? 'option no selected' : 'option no'
+
   return (
     <Wrapper>
       <Text onClick={onTally} textStyle='h4'>
         {title}
       </Text>
       <div className='options'>
-        <div onClick={() => castVote('1')} className='option yes'>
+        <div onClick={() => castVote('1')} className={yesClass}>
           <Text tag='h4'>
             <YesIcon />
             Yes
           </Text>
         </div>
-        <div onClick={() => castVote('0')} className='option no'>
+        <div onClick={() => castVote('0')} className={noClass}>
           <Text tag='h4'>
             <NoIcon />
             No

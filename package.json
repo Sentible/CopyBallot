@@ -16,8 +16,11 @@
     "@lit-protocol/pkp-ethers": "^3.0.6",
     "@lit-protocol/types": "^3.0.6",
     "@types/js-cookie": "^3.0.5",
+    "copy-to-clipboard": "^3.3.3",
     "ethers": "^6.8.0",
+    "husky": "8.0.1",
     "js-cookie": "^3.0.5",
+    "lint-staged": "13.2.2",
     "lit-js-sdk": "^1.1.250",
     "next": "13.5.4",
     "node-fetch": "2.6.1",
@@ -26,9 +29,7 @@
     "react-markdown": "^9.0.0",
     "remark-gfm": "^4.0.0",
     "styled-components": "^6.1.0",
-    "webpack": "^5.89.0",
-    "lint-staged": "13.2.2",
-    "husky": "8.0.1"
+    "webpack": "^5.89.0"
   },
   "devDependencies": {
     "@types/node": "^20",
