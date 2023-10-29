@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { BlankCard } from '@/components/Card'
 
 const LogoDiv = styled.div`
-  background-color: #fff;
+  background-color: #000;
   border-radius: 100%;
   display: flex;
   justify-content: center;
@@ -16,6 +16,7 @@ const LogoDiv = styled.div`
 `
 
 const Title = styled.div`
+  color: ${({ theme }) => theme.Colors.black};
   font-style: italic;
   .subtitle {
     font-size: 10pt;
@@ -40,7 +41,7 @@ export default function Header() {
   return (
     <HeaderCard>
       <LogoDiv>
-        <img alt='ProposalClip' src='/logo.png' />
+        <img alt='ProposalClip' src='/logo-2.png' />
       </LogoDiv>
       <Title>
         <p className='title'>ProposalClip</p>
