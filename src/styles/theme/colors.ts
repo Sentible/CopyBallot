@@ -21,5 +21,5 @@ export const Colors = {
   white: '#f2f4f7',
   pureWhite: '#ffffff',
   red: '#ee5253',
-  turquoise: '#48dbfb'
+  turquoise: '#48dbfb',
 }

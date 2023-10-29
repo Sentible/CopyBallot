@@ -2,7 +2,7 @@ export const Typography = {
   font: {
     body: "'Poppins', sans-serif",
     brand: "'Poppins', sans-serif",
-    numbers: "'Urbanist', sans-serif"
+    numbers: "'Urbanist', sans-serif",
   },
   size: {
     micro: '0.625rem',
@@ -13,18 +13,18 @@ export const Typography = {
     larger: '1.5rem',
     xLarge: '2rem',
     giant: '3rem',
-    headline: '4rem'
+    headline: '4rem',
   },
   weight: {
     extraLight: 200,
     normal: 400,
     semiBold: 600,
-    bold: 700
+    bold: 700,
   },
   lineHeight: {
-    baseline: '1.25rem'
+    baseline: '1.25rem',
   },
   letterSpacing: {
-    baseline: 0
-  }
+    baseline: 0,
+  },
 }

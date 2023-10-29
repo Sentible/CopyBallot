@@ -3,16 +3,20 @@
 const webpack = require("webpack");
 const nextConfig = {
   reactStrictMode: true,
-  webpack: (config, {isServer}) => {
+  webpack: (config, { isServer }) => {
     config.plugins.push(new webpack.NormalModuleReplacementPlugin(/node:/, (resource) => {
-        resource.request = resource.request.replace(/^node:/, "");
+      resource.request = resource.request.replace(/^node:/, "");
     }))
 
     return config
-},
-images: {
-  domains: ['localhost'],
-},
+  },
+  images: {
+    domains: ['localhost'],
+  },
+  compiler: {
+    // Enables the styled-components SWC transform
+    styledComponents: true
+  }
 }
 
 module.exports = nextConfig
