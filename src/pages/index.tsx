@@ -1,12 +1,7 @@
 import Head from 'next/head'
-import { useDivaGate } from '@/hooks/lit-hooks/useTokenGate'
-import Button from '@/components/Button'
 import { BlankCard } from '@/components/Card'
-import Image from 'next/image'
 import styled from 'styled-components'
-import Text from '@/components/Text'
 import styles from '@/styles/Home.module.css'
-import { useEffect } from 'react'
 import Proposals from '@/modules/Proposals'
 import Header from '@/modules/Header'
 const StyledCard = styled(BlankCard)`

@@ -10,9 +10,6 @@ const nextConfig = {
 
     return config
   },
-  images: {
-    domains: ['localhost'],
-  },
   compiler: {
     // Enables the styled-components SWC transform
     styledComponents: true
