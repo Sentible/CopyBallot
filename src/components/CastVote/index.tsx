@@ -3,14 +3,14 @@ import Text from '../Text'
 
 const Wrapper = styled.div`
   margin: 0px -16px;
-  background: #000;
+  background: ${({ theme }) => theme.Colors.darkSilver};
   color: white;
   padding-top: 1rem;
-  border-radius: 10px 10px 0 0;
+  /* border-radius: 10px 10px 0 0; */
   margin-bottom: 10px;
   > p {
     margin: -8px 0 8px;
-    cursor: pointer;
+    /* cursor: pointer; */
     text-align: center;
     padding: 0.3rem;
   }
@@ -93,9 +93,8 @@ const NoIcon = () => (
 )
 export const CastVote = ({
   castVote,
-  onTally,
   selected,
-  title = 'Cast Your Vote',
+  title = 'Proposal Voting Calldata',
 }: {
   castVote: (vote: '0' | '1') => void
   onTally?: () => void
@@ -107,10 +106,8 @@ export const CastVote = ({
   const noClass = isSelected('0') ? 'option no selected' : 'option no'
 
   return (
-    <Wrapper>
-      <Text onClick={onTally} textStyle='h4'>
-        {title}
-      </Text>
+    <Wrapper className='cast-vote'>
+      {title && <Text textStyle='h4'>{title}</Text>}
       <div className='options'>
         <div onClick={() => castVote('1')} className={yesClass}>
           <Text tag='h4'>

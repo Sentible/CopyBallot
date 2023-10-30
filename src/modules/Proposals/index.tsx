@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Interface } from 'ethers'
 
 import { CastVote } from '@/components/CastVote'
 import { Proposals, Proposal } from '@/utils/types'
 import CallDataPreview from '@/components/CallDataPreview'
 import Text from '@/components/Text'
+import { ProposalPreview } from '@/components/ProposalPreview'
+import { getVote, getTitle } from '@/utils'
 
 const isActive = (proposal: Proposal) => {
   const status = new Set(proposal.statusChanges.map(({ type }) => type))
@@ -16,15 +17,7 @@ const isActive = (proposal: Proposal) => {
   return hasActive && hasPending && !hasExecuted
 }
 
-const getVote = (id: string, vote: '0' | '1') =>
-  new Interface(['function castVote(uint256 proposalId, uint8 support)']).encodeFunctionData('castVote', [id, vote])
-
-const getTitle = (markdown: string) => {
-  const title = markdown.split('\n')[0]
-  return title.replace('# ', '')
-}
-
-const Proposal = ({ proposal }: { proposal: Proposal }) => {
+export const ProposalCard = ({ proposal, isOpen = false }: { proposal: Proposal; isOpen?: boolean }) => {
   const { description, governance, id } = proposal
 
   const [castedVote, setCastedVote] = useState<'0' | '1'>('1')
@@ -41,8 +34,8 @@ const Proposal = ({ proposal }: { proposal: Proposal }) => {
   }
 
   return (
-    <CallDataPreview callData={callData} contractAddress={contractAddress}>
-      <CastVote castVote={setCastedVote} onTally={openTallyLink} title={title} selected={castedVote} />
+    <CallDataPreview isOpen={isOpen} callData={callData} contractAddress={contractAddress}>
+      <CastVote castVote={setCastedVote} onTally={openTallyLink} selected={castedVote} />
     </CallDataPreview>
   )
 }
@@ -89,19 +82,31 @@ export default function Proposals() {
     >
       {!!active?.length && (
         <div>
-          <Text textStyle='h1'>Active Proposals</Text>
+          <span
+            style={{
+              color: 'black',
+            }}
+          >
+            <Text textStyle='h1'>Active Diva Proposals</Text>
+          </span>
           {active.map((proposal) => (
-            <Proposal proposal={proposal} key={proposal.id} />
+            <ProposalPreview proposal={proposal} key={proposal.id} />
           ))}
         </div>
       )}
       {!!inActive?.length && (
-        <>
-          <Text textStyle='h1'>Past Proposals</Text>
+        <div>
+          <span
+            style={{
+              color: 'black',
+            }}
+          >
+            <Text textStyle='h1'>Past Diva Proposals</Text>
+          </span>
           {inActive.map((proposal) => (
-            <Proposal proposal={proposal} key={proposal.id} />
+            <ProposalPreview proposal={proposal} key={proposal.id} />
           ))}
-        </>
+        </div>
       )}
     </div>
   )

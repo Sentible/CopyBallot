@@ -6,18 +6,33 @@ import { useCallback, useState } from 'react'
 import { CastVote } from '../CastVote'
 import copy from 'copy-to-clipboard'
 
-const StyledCard = styled(BlankCard)`
+const StyledCard = styled(BlankCard)<{
+  isOpen?: boolean
+}>`
+  background-color: ${({ theme }) => theme.Colors.pureWhite};
+  border-radius: 10px;
+  box-shadow: none;
   color: ${({ theme }) => theme.Colors.black};
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.Colors.pureWhite};
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 1px 1px 4px 1px #f0f0f0;
-  padding-top: 0;
-  max-width: 565px;
-  margin: 0 auto 0.75rem;
+  margin: 0;
+  max-width: 535px;
+  padding: 0 1rem 0;
+  transition: all 1s ease-in-out;
   word-wrap: break-word;
+
+  ${({ isOpen }) =>
+    isOpen
+      ? `
+      height: 360px;
+      visibility: visible;
+  `
+      : `
+      height: 0;
+      visibility: hidden;
+
+  `}
+
   .card-title {
     margin-bottom: 20px;
   }
@@ -38,7 +53,7 @@ const CLI_COMMAND = styled(Text)`
 
   p.text--body {
     background: none;
-    font-size: 16px !important;
+    font-size: 14px !important;
   }
 `
 
@@ -67,7 +82,7 @@ const Content = styled.div`
 
     .text--caption {
       color: #6f828f;
-      font-size: 16px !important;
+      font-size: 14px !important;
       font-family: system-ui, sans-serif;
       width: 90px;
     }
@@ -87,7 +102,7 @@ const Content = styled.div`
 const Code = styled(Text)`
   border-radius: 6px;
   padding: 6px;
-  font-size: 16px !important;
+  font-size: 14px !important;
   font-family: monospace;
 
   &.calldata {
@@ -113,7 +128,7 @@ const CopyButton = styled(Button)`
     width: 165px;
     p {
       font-family: system-ui, sans-serif;
-      font-size: 16px !important;
+      font-size: 14px !important;
       font-weight: 500 !important;
     }
   }
@@ -173,9 +188,10 @@ type Props = {
   contractAddress: string
   callData: string
   children?: React.ReactNode
+  isOpen?: boolean
 }
 
-const CallDataPreview = ({ contractAddress, children, callData }: Props) => {
+const CallDataPreview = ({ contractAddress, children, callData, isOpen }: Props) => {
   const [copied, setCopied] = useState(false)
 
   const onCopy = useCallback(() => {
@@ -193,7 +209,7 @@ const CallDataPreview = ({ contractAddress, children, callData }: Props) => {
   }, [contractAddress])
 
   return (
-    <StyledCard>
+    <StyledCard isOpen={isOpen}>
       {children}
       <Text className='card-title' textStyle='h3'>
         Command Data
