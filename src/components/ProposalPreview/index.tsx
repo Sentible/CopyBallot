@@ -2,29 +2,32 @@ import { Proposal } from '@/utils/types'
 import styled from 'styled-components'
 import Card from '../Card'
 import { getTallyLink, getTitle } from '@/utils'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Text from '../Text'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { ProposalCard } from '@/modules/Proposals'
 
 const StyledCard = styled(Card)`
+  box-shadow: 2px 2px 10px 0px #a39191;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 100%;
-  padding: 0;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 535px;
   overflow: hidden;
-  box-shadow: 2px 2px 10px 0px #a39191;
+  padding: 0;
+  border-radius: 2rem;
 
   & + & {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
   }
 
   .proposal-header,
   .description,
   .actions p {
-    padding: 1rem;
+    padding: 2rem;
   }
 
   .proposal-header {
@@ -36,11 +39,12 @@ const StyledCard = styled(Card)`
   }
 
   .logo {
-    height: 30px;
-    margin-right: 0.5rem;
+    height: 40px;
+    margin-right: 1rem;
 
     img {
       height: 100%;
+      border-radius: 100%;
     }
   }
 
@@ -90,7 +94,15 @@ const StyledCard = styled(Card)`
   }
 `
 
-export const ProposalPreview = ({ proposal }: { proposal: Proposal }) => {
+export const ProposalPreview = ({
+  activeProposal,
+  proposal,
+  setActiveProposal,
+}: {
+  activeProposal?: string
+  proposal: Proposal
+  setActiveProposal: (id: string) => void
+}) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const { img, title } = useMemo(() => {
@@ -100,6 +112,14 @@ export const ProposalPreview = ({ proposal }: { proposal: Proposal }) => {
     }
   }, [proposal])
 
+  useEffect(() => {
+    if (activeProposal === proposal.id) {
+      setIsOpen(true)
+    } else {
+      setIsOpen(false)
+    }
+  }, [activeProposal, proposal.id])
+
   return (
     <StyledCard>
       <div className='proposal-header'>
@@ -107,20 +127,26 @@ export const ProposalPreview = ({ proposal }: { proposal: Proposal }) => {
           <img src={img} alt='logo' />
         </div>
         <div className='title'>
-          <Text textStyle='h5'>{title}</Text>
+          <Text textStyle='h3'>{title}</Text>
         </div>
       </div>
       <div className='description'>
-        <Text className='view-link' textStyle='h6'>
+        <Text className='view-link' textStyle='h4'>
           View Proposal on Tally
         </Text>
-        <Text tag='a' target='_blank' href={getTallyLink(proposal.id)} textStyle='caption'>
+        <Text tag='a' target='_blank' href={getTallyLink(proposal.id)} textStyle='h5'>
           {proposal.id}
         </Text>
         {/* <Markdown remarkPlugins={[remarkGfm]}>{description}</Markdown> */}
       </div>
       <div className={isOpen ? 'actions hidden' : 'actions'}>
-        <Text onClick={() => setIsOpen(!isOpen)} textStyle='h6'>
+        <Text
+          onClick={() => {
+            setIsOpen(true)
+            setActiveProposal(proposal.id)
+          }}
+          textStyle='h4'
+        >
           GENERATE VOTE
         </Text>
       </div>

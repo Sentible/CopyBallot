@@ -17,14 +17,14 @@ const StyledCard = styled(BlankCard)<{
   flex-direction: column;
   margin: 0;
   max-width: 535px;
-  padding: 0 1rem 0;
-  transition: all 1s ease-in-out;
+  padding: 0 2rem 0;
+  transition: all 0.5s ease-in-out;
   word-wrap: break-word;
 
   ${({ isOpen }) =>
     isOpen
       ? `
-      height: 360px;
+      height: 430px;
       visibility: visible;
   `
       : `
@@ -32,6 +32,19 @@ const StyledCard = styled(BlankCard)<{
       visibility: hidden;
 
   `}
+  ${({ theme }) => theme.Breakpoints.queries.smAlt} {
+    ${({ isOpen }) =>
+      isOpen
+        ? `
+      height: 570px;
+      visibility: visible;
+  `
+        : `
+      height: 0;
+      visibility: hidden;
+
+  `}
+  }
 
   .card-title {
     margin-bottom: 20px;
@@ -58,11 +71,13 @@ const CLI_COMMAND = styled(Text)`
 `
 
 const Content = styled.div`
+  margin-top: 1.5rem;
+
   .pair {
     align-items: center;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
 
     ${({ theme }) => theme.Breakpoints.queries.smAlt} {
       align-items: flex-start;
@@ -71,13 +86,13 @@ const Content = styled.div`
       .code-wrapper {
         margin-left: 0 !important;
         margin-top: 0.5rem;
-        width: 330px !important;
+        width: 290px !important;
       }
     }
 
     .code-wrapper {
       margin-left: 0.5rem;
-      width: 390px;
+      width: 356px;
     }
 
     .text--caption {
@@ -101,7 +116,7 @@ const Content = styled.div`
 
 const Code = styled(Text)`
   border-radius: 6px;
-  padding: 6px;
+  padding: 1rem;
   font-size: 14px !important;
   font-family: monospace;
 
@@ -123,7 +138,7 @@ const CopyButton = styled(Button)`
     border-radius: 100px;
     border: none;
     color: #fff;
-    margin-top: 1rem;
+    margin-top: 2rem;
     padding: 8px;
     width: 165px;
     p {
@@ -211,12 +226,9 @@ const CallDataPreview = ({ contractAddress, children, callData, isOpen }: Props)
   return (
     <StyledCard isOpen={isOpen}>
       {children}
-      <Text className='card-title' textStyle='h3'>
-        Command Data
-      </Text>
       <Content>
         <div className='pair'>
-          <Text textStyle='caption'>CONTRACT</Text>
+          <Text textStyle='caption'>DAO CONTRACT</Text>
           <div className='code-wrapper'>
             <Code className='contract' onClick={openEtherscanLink} textStyle='micro'>
               {contractAddress}
@@ -234,7 +246,7 @@ const CallDataPreview = ({ contractAddress, children, callData, isOpen }: Props)
         <CLI_COMMAND className='cli-command' textStyle='micro'>
           <code>rocketpool node send-message</code>
           <Code className='contract' onClick={openEtherscanLink}>
-            DIVA_CONTRACT
+            DAO_CONTRACT
           </Code>
           <Code className='calldata'>CALLDATA</Code>
         </CLI_COMMAND>

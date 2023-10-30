@@ -41,6 +41,7 @@ export const ProposalCard = ({ proposal, isOpen = false }: { proposal: Proposal;
 }
 
 export default function Proposals() {
+  const [activeProposal, setActiveProposal] = useState<string>()
   const [proposals, setProposals] = useState<Proposals>([])
 
   const getData = useCallback(async () => {
@@ -77,11 +78,17 @@ export default function Proposals() {
   return (
     <div
       style={{
-        width: '95w',
+        display: 'flex',
+        flexDirection: 'column',
+        width: '95vw',
       }}
     >
       {!!active?.length && (
-        <div>
+        <div
+          style={{
+            width: '100%',
+          }}
+        >
           <span
             style={{
               color: 'black',
@@ -90,12 +97,21 @@ export default function Proposals() {
             <Text textStyle='h1'>Active Diva Proposals</Text>
           </span>
           {active.map((proposal) => (
-            <ProposalPreview proposal={proposal} key={proposal.id} />
+            <ProposalPreview
+              activeProposal={activeProposal}
+              proposal={proposal}
+              key={proposal.id}
+              setActiveProposal={setActiveProposal}
+            />
           ))}
         </div>
       )}
       {!!inActive?.length && (
-        <div>
+        <div
+          style={{
+            width: '100%',
+          }}
+        >
           <span
             style={{
               color: 'black',
@@ -104,7 +120,12 @@ export default function Proposals() {
             <Text textStyle='h1'>Past Diva Proposals</Text>
           </span>
           {inActive.map((proposal) => (
-            <ProposalPreview proposal={proposal} key={proposal.id} />
+            <ProposalPreview
+              activeProposal={activeProposal}
+              proposal={proposal}
+              key={proposal.id}
+              setActiveProposal={setActiveProposal}
+            />
           ))}
         </div>
       )}

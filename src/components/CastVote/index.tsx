@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import Text from '../Text'
 
 const Wrapper = styled.div`
-  margin: 0px -16px;
+  margin: 0px -32px;
   background: ${({ theme }) => theme.Colors.darkSilver};
   color: white;
   padding-top: 1rem;
