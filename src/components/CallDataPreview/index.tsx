@@ -6,7 +6,7 @@ import { useCallback, useState } from 'react'
 import { CastVote } from '../CastVote'
 import copy from 'copy-to-clipboard'
 
-const StyledCard = styled(BlankCard)<{
+const StyledCard = styled(BlankCard) <{
   isOpen?: boolean
 }>`
   background-color: ${({ theme }) => theme.Colors.pureWhite};
@@ -25,7 +25,7 @@ const StyledCard = styled(BlankCard)<{
   ${({ isOpen }) =>
     isOpen
       ? `
-      height: 430px;
+      height: 490px;
       visibility: visible;
       opacity: 1;
 
@@ -37,13 +37,13 @@ const StyledCard = styled(BlankCard)<{
   `}
   ${({ theme }) => theme.Breakpoints.queries.smAlt} {
     ${({ isOpen }) =>
-      isOpen
-        ? `
-      height: 570px;
+    isOpen
+      ? `
+      height: 590px;
       opacity: 1;
       visibility: visible;
   `
-        : `
+      : `
       height: 0;
       visibility: hidden;
 
@@ -57,16 +57,14 @@ const StyledCard = styled(BlankCard)<{
 
 const CLI_COMMAND = styled(Text)`
   align-items: center;
-  background: ${({ theme }) => theme.Colors.lightGrey};
   border-radius: 100px;
-  border: 1px solid #e7e7e7;
+  border: 2px solid #e7e7e7;
   color: #333;
   display: flex;
   font-family: system-ui, sans-serif;
   font-size: 14px !important;
-  height: 27px;
   justify-content: space-evenly;
-  padding: 0 14px;
+  padding: 1rem;
 
   p.text--body {
     background: none;
@@ -149,7 +147,7 @@ const CopyButton = styled(Button)`
     border: none;
     color: #fff;
     margin-top: 2rem;
-    padding: 8px;
+    padding: 1rem;
     width: 165px;
     p {
       font-family: system-ui, sans-serif;
@@ -226,7 +224,7 @@ const CallDataPreview = ({ contractAddress, children, callData, isOpen }: Props)
       setTimeout(() => {
         setCopied(false)
       }, 3000)
-    } catch (error) {}
+    } catch (error) { }
   }, [contractAddress, callData])
 
   const openEtherscanLink = useCallback(() => {

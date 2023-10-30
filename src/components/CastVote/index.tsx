@@ -6,11 +6,9 @@ const Wrapper = styled.div`
   background: ${({ theme }) => theme.Colors.darkSilver};
   color: white;
   padding-top: 1rem;
-  /* border-radius: 10px 10px 0 0; */
   margin-bottom: 10px;
   > p {
     margin: -8px 0 8px;
-    /* cursor: pointer; */
     text-align: center;
     padding: 0.3rem;
   }
@@ -28,7 +26,7 @@ const Wrapper = styled.div`
       display: flex;
       justify-content: center;
       width: 50%;
-      padding: 0.4rem;
+      padding: 0.8rem;
 
       h4 {
         height: auto;
@@ -37,7 +35,7 @@ const Wrapper = styled.div`
 
       svg {
         position: relative;
-        top: 2px;
+        top: 5px;
         left: -4px;
       }
 
