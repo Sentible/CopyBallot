@@ -18,7 +18,8 @@ const StyledCard = styled(BlankCard)<{
   margin: 0;
   max-width: 535px;
   padding: 0 2rem 0;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in;
+  opacity: 0;
   word-wrap: break-word;
 
   ${({ isOpen }) =>
@@ -26,6 +27,8 @@ const StyledCard = styled(BlankCard)<{
       ? `
       height: 430px;
       visibility: visible;
+      opacity: 1;
+
   `
       : `
       height: 0;
@@ -37,6 +40,7 @@ const StyledCard = styled(BlankCard)<{
       isOpen
         ? `
       height: 570px;
+      opacity: 1;
       visibility: visible;
   `
         : `
@@ -67,6 +71,12 @@ const CLI_COMMAND = styled(Text)`
   p.text--body {
     background: none;
     font-size: 14px !important;
+  }
+
+  > span.contract,
+  span.calldata {
+    padding: 0;
+    background: none;
   }
 `
 
@@ -176,14 +186,14 @@ const CopyIcon = () => (
     <path
       d='M8.53125 8.53125H10.9688V2.03125H4.46875V4.46875'
       stroke='#FFFA8A'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
     <path
       d='M8.53125 4.46875H2.03125V10.9688H8.53125V4.46875Z'
       stroke='#FFFA8A'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
   </svg>
 )
@@ -193,8 +203,8 @@ const CheckIcon = () => (
       d='M10.125 3.375L4.875 8.625L2.25 6'
       stroke='#27FEB1'
       stroke-width='1.5'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
   </svg>
 )
@@ -228,7 +238,7 @@ const CallDataPreview = ({ contractAddress, children, callData, isOpen }: Props)
       {children}
       <Content>
         <div className='pair'>
-          <Text textStyle='caption'>DAO CONTRACT</Text>
+          <Text textStyle='caption'>CONTRACT</Text>
           <div className='code-wrapper'>
             <Code className='contract' onClick={openEtherscanLink} textStyle='micro'>
               {contractAddress}
@@ -245,10 +255,12 @@ const CallDataPreview = ({ contractAddress, children, callData, isOpen }: Props)
         </div>
         <CLI_COMMAND className='cli-command' textStyle='micro'>
           <code>rocketpool node send-message</code>
-          <Code className='contract' onClick={openEtherscanLink}>
-            DAO_CONTRACT
+          <Code tag='span' className='contract' onClick={openEtherscanLink}>
+            CONTRACT
           </Code>
-          <Code className='calldata'>CALLDATA</Code>
+          <Code tag='span' className='calldata'>
+            CALLDATA
+          </Code>
         </CLI_COMMAND>
       </Content>
       <CopyButton onClick={onCopy}>

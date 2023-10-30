@@ -27,6 +27,7 @@ const Title = styled.div`
     font-size: 26pt;
     line-height: 0.8em;
     margin-bottom: 1rem;
+    font-weight: 500;
   }
 `
 

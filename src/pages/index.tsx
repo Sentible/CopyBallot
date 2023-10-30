@@ -36,10 +36,7 @@ export default function Home() {
     <>
       <Head>
         <title>ProposalClip</title>
-        <meta
-          name='description'
-          content='Quickly generate calldata to vote on Diva proposals directly from your Rocket Pool node.'
-        />
+        <meta name='description' content='Voting on DIVA proposals the easy for Rocket Pool node operators.' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
