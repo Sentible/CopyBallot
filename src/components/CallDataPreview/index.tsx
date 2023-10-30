@@ -6,7 +6,7 @@ import { useCallback, useState } from 'react'
 import { CastVote } from '../CastVote'
 import copy from 'copy-to-clipboard'
 
-const StyledCard = styled(BlankCard) <{
+const StyledCard = styled(BlankCard)<{
   isOpen?: boolean
 }>`
   background-color: ${({ theme }) => theme.Colors.pureWhite};
@@ -37,13 +37,13 @@ const StyledCard = styled(BlankCard) <{
   `}
   ${({ theme }) => theme.Breakpoints.queries.smAlt} {
     ${({ isOpen }) =>
-    isOpen
-      ? `
+      isOpen
+        ? `
       height: 590px;
       opacity: 1;
       visibility: visible;
   `
-      : `
+        : `
       height: 0;
       visibility: hidden;
 
@@ -224,7 +224,7 @@ const CallDataPreview = ({ contractAddress, children, callData, isOpen }: Props)
       setTimeout(() => {
         setCopied(false)
       }, 3000)
-    } catch (error) { }
+    } catch (error) {}
   }, [contractAddress, callData])
 
   const openEtherscanLink = useCallback(() => {
