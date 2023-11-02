@@ -200,7 +200,7 @@ const CheckIcon = () => (
     <path
       d='M10.125 3.375L4.875 8.625L2.25 6'
       stroke='#27FEB1'
-      stroke-width='1.5'
+      strokeWidth='1.5'
       strokeLinecap='round'
       strokeLinejoin='round'
     />

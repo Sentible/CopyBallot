@@ -1,14 +1,10 @@
 import Head from 'next/head'
-import { BlankCard } from '@/components/Card'
 import styled from 'styled-components'
 import styles from '@/styles/Home.module.css'
 import Proposals from '@/modules/Proposals'
 import Header from '@/modules/Header'
-const StyledCard = styled(BlankCard)`
-  align-items: center;
-  display: flex;
-  justify-content: center;
-`
+import { HowTo } from '@/modules/HowTo'
+import { Footer } from '@/modules/Footer'
 
 const AppWrapper = styled.div`
   .text--headline {
@@ -26,7 +22,9 @@ const App = () => {
   return (
     <AppWrapper>
       <Header />
+      <HowTo />
       <Proposals />
+      <Footer />
     </AppWrapper>
   )
 }
