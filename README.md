@@ -1,12 +1,6 @@
 # Proposalclip
 
-Proposalclip is an open-source web application designed to streamline the voting process for ERC20 token proposals. This tool allows users to easily generate and copy CLI commands necessary for voting without connecting their nodes, facilitating a more efficient and user-friendly experience.
-
-## Features
-
-- **Generate Voting Calldata:** View proposals and generate the necessary calldata for voting with a single click.
-- **Simple Voting Interface:** Vote 'Yes' or 'No' on proposals without complex procedures.
-- **Copy CLI Commands:** Quickly copy the CLI command to your clipboard, ready for use in your RocketPool node.
+Proposalclip is an open-source web application designed to streamline the voting process for DIVA ERC20 token proposals. This tool allows users to easily generate and copy CLI commands necessary for voting without connecting their nodes, facilitating a more efficient and user-friendly experience.
 
 ## Getting Started
 
