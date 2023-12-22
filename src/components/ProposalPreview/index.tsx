@@ -108,7 +108,7 @@ export const ProposalPreview = ({
 
   const { img, title } = useMemo(() => {
     return {
-      img: proposal?.governance?.organization?.visual?.icon,
+      img: proposal?.governance?.organization?.metadata?.icon,
       title: getTitle(proposal.description),
     }
   }, [proposal])

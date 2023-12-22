@@ -10,11 +10,11 @@ export interface VoteStat {
   support: string
   percent: number
 }
-export interface Visual {
+export interface Metadata {
   icon: string
 }
 export interface Organization {
-  visual: Visual
+  metadata: Metadata
 }
 export interface Token {
   decimals: number
