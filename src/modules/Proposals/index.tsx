@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { CastVote } from '@/components/CastVote'
-import { Proposals, Proposal } from '@/utils/types'
+import type { Proposals, Proposal } from '@/utils/types'
 import CallDataPreview from '@/components/CallDataPreview'
 import Text from '@/components/Text'
 import { ProposalPreview } from '@/components/ProposalPreview'
@@ -13,8 +13,9 @@ const isActive = (proposal: Proposal) => {
   const hasActive = status.has('ACTIVE')
   const hasPending = status.has('PENDING')
   const hasExecuted = status.has('EXECUTED')
+  const isExpired = status.has('EXPIRED')
 
-  return hasActive && hasPending && !hasExecuted
+  return hasActive && hasPending && !hasExecuted && !isExpired
 }
 
 export const ProposalCard = ({ proposal, isOpen = false }: { proposal: Proposal; isOpen?: boolean }) => {

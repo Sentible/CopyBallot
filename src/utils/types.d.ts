@@ -1,5 +1,6 @@
 export interface StatusChange {
-  type: string
+  type: 'ACTIVE' | 'PENDING' | 'EXECUTED' | 'EXPIRED' | 'SUCCEEDED' | 'QUEUED'
+
 }
 export interface Block {
   timestamp: string
