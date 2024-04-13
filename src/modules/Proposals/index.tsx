@@ -18,6 +18,17 @@ const isActive = (proposal: Proposal) => {
   return hasActive && hasPending && !hasExecuted && !isExpired
 }
 
+const isPendingOnly = (proposal: Proposal) => {
+  const status = new Set(proposal.statusChanges.map(({ type }) => type))
+
+  const hasActive = status.has('ACTIVE')
+  const hasPending = status.has('PENDING')
+  const hasExecuted = status.has('EXECUTED')
+  const isExpired = status.has('EXPIRED')
+
+  return !hasActive && hasPending && !hasExecuted && !isExpired
+}
+
 export const ProposalCard = ({ proposal, isOpen = false }: { proposal: Proposal; isOpen?: boolean }) => {
   const { description, governance, id } = proposal
 
@@ -59,17 +70,20 @@ export default function Proposals() {
     }
   }, [])
 
-  const { active, inActive } = useMemo(() => {
+  const { active, inActive, pending } = useMemo(() => {
     const active: Proposals = []
     const inActive: Proposals = []
+    const pending: Proposals = []
     proposals.forEach((proposal) => {
       if (isActive(proposal)) {
         active.push(proposal)
+      } else if (isPendingOnly(proposal)) {
+        pending.push(proposal)
       } else {
         inActive.push(proposal)
       }
     })
-    return { active, inActive }
+    return { active, inActive, pending }
   }, [proposals])
 
   useEffect(() => {
@@ -84,6 +98,29 @@ export default function Proposals() {
         width: '95vw',
       }}
     >
+      {!!pending?.length && (
+        <div
+          style={{
+            width: '100%',
+          }}
+        >
+          <span
+            style={{
+              color: 'black',
+            }}
+          >
+            <Text textStyle='h1'>Pending Diva Proposals</Text>
+          </span>
+          {pending.map((proposal) => (
+            <ProposalPreview
+              activeProposal={activeProposal}
+              proposal={proposal}
+              key={proposal.id}
+              setActiveProposal={setActiveProposal}
+            />
+          ))}
+        </div>
+      )}
       {!!active?.length && (
         <div
           style={{
