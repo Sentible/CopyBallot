@@ -14,8 +14,9 @@ const isActive = (proposal: Proposal) => {
   const hasPending = status.has('PENDING')
   const hasExecuted = status.has('EXECUTED')
   const isExpired = status.has('EXPIRED')
+  const isDefeated = status.has('DEFEATED')
 
-  return hasActive && hasPending && !hasExecuted && !isExpired
+  return hasActive && hasPending && !hasExecuted && !isExpired && !isDefeated
 }
 
 const isPendingOnly = (proposal: Proposal) => {

@@ -1,5 +1,5 @@
 export interface StatusChange {
-  type: 'ACTIVE' | 'PENDING' | 'EXECUTED' | 'EXPIRED' | 'SUCCEEDED' | 'QUEUED'
+  type: 'ACTIVE' | 'PENDING' | 'EXECUTED' | 'EXPIRED' | 'SUCCEEDED' | 'QUEUED' | 'DEFEATED'
 
 }
 export interface Block {
